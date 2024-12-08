@@ -1,0 +1,65 @@
+import loboYamilo.*
+
+test "test baculo, guerrero con mucha vida" {
+  guerrero.vida(100)
+  assert.equals(baculo.poder(guerrero), 250)
+}
+
+test "test baculo, guerrero con poca vida" {
+  guerrero.vida(25)
+  assert.equals(baculo.poder(guerrero), 400)
+}
+
+test "test baculo, guerrero con poca vida y poder base de 100" {
+  guerrero.vida(25)
+  baculo.poderBase(100)
+  assert.equals(baculo.poder(guerrero), 200)
+}
+
+test "test flecha de bronce, 96 puntos" {
+  var fecha = new Date(day = 5, month = 1, year = 2024)
+  flechaDeBronce.cantidadDeDias(fecha)
+  assert.equals(flechaDeBronce.puntosFinales(fecha), 96)
+}
+
+test "test flecha de bronce, 0 puntos" {
+  var fecha = new Date(day = 5, month = 9, year = 2024)
+  flechaDeBronce.cantidadDeDias(fecha)
+  assert.equals(flechaDeBronce.puntosFinales(fecha), 0)
+}
+
+test "calorias" {
+  assert.equals(300, yamilo.calorias())
+}
+
+test "comer" {
+  yamilo.comer(chanchito)
+  assert.equals(30, yamilo.calorias())
+}
+
+test "atraparTrue" {
+  tom.energia(20)
+  jerry.peso(4)
+  
+  assert.equals(true, tom.atrapar(jerry))
+}
+
+test "atraparFalse" {
+  tom.energia(10) // 7
+  jerry.peso(2)
+  
+  assert.equals(false, tom.atrapar(jerry))
+}
+
+test "correr" {
+  tom.corre(jerry)
+  assert.equals(6, tom.energia())
+  assert.equals(34, tom.posicion())
+}
+
+test "atraparTrueRobot" {
+  tom.energia(20)
+  ratonRobot.peso(4)
+  
+  assert.equals(true, tom.atrapar(jerry))
+}

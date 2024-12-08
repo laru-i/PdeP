@@ -1,0 +1,190 @@
+
+import example.*
+
+test "test baculo, guerrero con mucha vida" {
+  const baculo = new Baculo()
+  const guerrero = new Guerrero(vida=100) 
+	assert.equals(baculo.poder(guerrero),250)
+}
+
+test "test baculo, guerrero con poca vida" {
+  const baculo = new Baculo()
+  const guerrero = new Guerrero(vida=9)
+	assert.equals(baculo.poder(guerrero),400)
+}
+
+test "test un báculo de poder base 100 para un guerrero con poca vida " {
+  const guerrero = new Guerrero(vida=9)
+  const baculo = new Baculo(poderBase=100)
+	assert.equals(baculo.poder(guerrero), 200)
+}
+
+test "test Espada, una espada enana para cualquier guerrero con vida base 100" {
+	const guerrero = new Guerrero()
+  const espadaenana = new Espada(magiaActual = "Enana")
+  assert.equals(500, guerrero.pelea(espadaenana))
+}
+
+test "test una espada élfica para cualquier guerrero" {
+    const guerrero = new Guerrero() 
+    assert.equals(250, guerrero.pelea(glamdring)) 
+}
+
+
+test "test flecha de bronce, 96 puntos" {
+  const fecha = new Date(day = 5, month = 1, year = 2024)
+  const flechaBronce = new FlechaDeBronce()
+  assert.equals(flechaBronce.poder(), 96)
+}
+
+test "test flecha de bronce, 0 puntos" {
+  const fechaAux = new Date(day = 5, month = 9, year = 2024)
+  const flechaBronce = new FlechaDeBronce(fecha = fechaAux)
+  assert.equals(flechaBronce.poder(), 0)
+}
+
+test "El poder de gandalf con energía 100 y un arma de poder 100 más otra de 150" {
+  const gandalf = new Gandalf(vida=100)
+  const arma1 = new Arma()
+  const arma2 = new Arma()
+  arma1.cambiarPoder(100)
+  arma2.cambiarPoder(150)
+  gandalf.agregarArma(arma1)
+  gandalf.agregarArma(arma2)
+  assert.equals(2000, gandalf.poder())  
+}
+
+test "El poder de gandalf con energía 5  y un arma de poder 100 más otra de 150" {
+  const gandalf = new Gandalf(vida=5)
+  const arma1 = new Arma()
+  const arma2 = new Arma()
+  arma1.cambiarPoder(100)
+  arma2.cambiarPoder(150)
+  gandalf.agregarArma(arma1)
+  gandalf.agregarArma(arma2)
+  assert.equals(1500, gandalf.poder()) 
+}
+
+test "Flecha aluminio" {
+  const flechaAluminio = new FlechasAluminio()
+  assert.equals(50, flechaAluminio.valor()) 
+}
+
+test "flecha de hierro sin oxidar" {
+  const flechaHierro = new FlechasHierro(oxidada = false)
+  assert.equals(70, flechaHierro.valor())
+}
+
+test "Flecha de hierro oxidada" {
+  const flechaHierro = new FlechasHierro()
+  assert.equals(35, flechaHierro.valor())
+}
+
+test "una caja con la flecha de aluminio, 
+       la flecha de hierro sin oxidar y 
+       una fecha de bronce lustrada el 01/01/2024 y usada el 05/01/2024" {
+      var flechaHierro = new FlechasHierro()
+      var flechaAluminio = new FlechasAluminio()
+      var flechaBronce = new FlechaDeBronce()
+	    var flechasAux=#{flechaAluminio, flechaHierro, flechaBronce}
+      var cajaDeFlechasNegras = new CajaDeFlechasNegras(flechas=flechasAux)
+      assert.equals(83, cajaDeFlechasNegras.valor())
+}// esta mal la suma del enunciado
+
+test "Gandalf pasa por Lebennin" {
+  const gandalf = new Gandalf(vida = 100)
+  lebennin.puedePasar(gandalf)
+  assert.equals(gandalf.vida(), 100)
+}
+
+test "Un guerrero con poder 3000 puede pasar por Lebennin" {
+  const guerrero = new Guerrero(vida = 100)
+  const arma = new Arma()
+  arma.cambiarPoder(3000)
+  guerrero.agregarArma(arma)
+  assert.equals(lebennin.puedePasar(guerrero), true)
+}
+
+test "Un guerrero con poder 100 puede pasar por Lebennin" {
+  const guerrero = new Guerrero(vida = 100)
+  const arma = new Arma()
+  arma.cambiarPoder(100)
+  guerrero.agregarArma(arma)
+  assert.equals(lebennin.puedePasar(guerrero), false)
+}
+
+test "Un personaje armado puede pasar Minas Tirith" {
+  const guerrero = new Guerrero(vida = 100)
+  guerrero.agregarArma(glamdring)
+  assert.equals( minasTirith.puedePasar(guerrero) , true)
+}
+
+test "Un personaje desarmado puede pasar Minas Tirith" {
+  const guerrero = new Guerrero(vida = 100)
+  assert.equals( minasTirith.puedePasar(guerrero) , false)
+}
+
+test "Gandalf de 100 unidades de vida con el báculo y la espada pasa por Minas Tirith " {
+  const gandalf = new Gandalf(vida=100)
+  const baculo = new Baculo()
+
+  gandalf.agregarArma(glamdring)
+  gandalf.agregarArma(baculo)
+  minasTirith.puedePasar(gandalf)
+  assert.equals(80,gandalf.vida())
+}
+
+test "Gandalf puede pasar Lossarnach " {
+  const gandalf = new Gandalf(vida=100)
+  assert.equals(lossarnach.puedePasar(gandalf), true)
+}
+
+test "Gandalf de 100 unidades de vida con el báculo y la espada pasa por Lossarnach" {
+   const gandalf = new Gandalf(vida=100)
+  const baculo = new Baculo()
+
+  gandalf.agregarArma(glamdring)
+  gandalf.agregarArma(baculo)
+  lossarnach.puedePasar(gandalf)
+  assert.equals(104,gandalf.vida())
+}
+
+test "Gandalf de 100 unidades de vida con el báculo y la espada, puede atravesar el camino compuesto por Lebennin y Minas Tirith " {
+  const gandalf = new Gandalf(vida=100)
+  assert.equals(caminoDeGondor.recorrido(gandalf), false)
+}
+
+test "Gandalf full vida y con sus armas, atraviesa el camino compuesto por Lebennin y Minas Tirith" {
+  const gandalf = new Gandalf(vida=100)
+  const baculo = new Baculo()
+
+  gandalf.agregarArma(glamdring)
+  gandalf.agregarArma(baculo)
+  caminoDeGondor.recorrido(gandalf)
+  assert.equals(80,gandalf.vida())
+}
+test "Tom puede atravesar lebennin" {
+  assert.equals(lebennin.puedePasar(tom), true)
+}
+
+test "Tom puede atravesar minasTirith" {
+  assert.equals(minasTirith.puedePasar(tom), true)
+}
+
+test "Tom puede atravesar lossarnach" {
+  assert.equals(lossarnach.puedePasar(tom), true)
+}
+
+
+test "Tom puede atravesar cualquier camino y no le afecta" {
+  assert.equals(true, caminoDeGondor.recorrido(tom))
+  assert.equals(2000, tom.poder())
+  assert.equals(100, tom.tieneArmas())
+}
+
+test "Tom puede atravesar cualquier camino" {
+  assert.equals(true, tom.puedePasar(lossarnach))
+  assert.equals(true, tom.puedePasar(minasTirith))
+  assert.equals(true, tom.puedePasar(lebennin))
+}
+
